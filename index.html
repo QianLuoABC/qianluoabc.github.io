@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="icon" type="image/png" href="images/樱花.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忆往昔小镇 - WTFXXJR</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.15.0/dist/av-min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>忆往昔小镇 - WTFXXJR</h1>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="desktop-nav">
+                <a href="index.html">首页</a>
+                <a href="town.html">小镇图鉴</a>
+                <a href="message.html">留言墙</a>
+                <a href="env.html">环境展示</a>
+                <a href="gov.html">政务公开</a>
+                <a href="connect.html">加入我们</a>
+            </nav>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html">首页</a>
+            <a href="town.html">小镇图鉴</a>
+            <a href="message.html">留言墙</a>
+            <a href="env.html">环境展示</a>
+            <a href="gov.html">政务公开</a>
+            <a href="connect.html">加入我们</a>
+        </nav>
+    </header>
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+    <main>
+        <section class="hero">
+            <h2>欢迎来到忆往昔小镇</h2>
+            <p>这是 WTFXXJR 服务器里最有温度的记忆空间...</p>
+        </section>
+        <section class="cards">
+            <div class="card-container">
+                <div class="card">游泳池</div>
+                <img src="images/yyc.jpg" alt="游泳池">
+                <div class="card-content">
+                    <p>Windows建成，是个放松的好地方AWA</p>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card">服务器商店</div>
+                <img src="images/shop.jpg" alt="商店">
+                <div class="card-content">
+                    <p>服务器的第一个商店，是忆往昔镇成为服务器的经融中心，每一砖每一瓦都有忆往昔居民亲手搭建</p>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card">地铁站-忆往昔总站</div>
+                <img src="images/station.jpg" alt="station">
+                <div class="card-content">
+                    <p>由忆往昔居民联合搭建，交通强国，铁路先行！</p>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card">赝海站（建造中）</div>
+                <img src="images/newstation.jpg" alt="new station">
+                <div class="card-content">
+                    <p>由副镇长亲自带头，为服务器的交通献身</p>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card">小镇全景</div>
+                <img src="images/zhen.jpg" alt="zhen">
+                <div class="card-content">
+                    <p>小镇的全景，拍摄于2025/8/4</p>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card">忆往昔部分居民合影</div>
+                <img src="images/8.jpg" alt="合影">
+                <div class="card-content">
+                    <p>出镜人员：1.镇长CAT 2.副镇长WINDOWS 3.普通居民QIANLUOABC 4.地理局局长LAOXING_QUQ</p>
+                </div>
+            </div>
+        </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM已加载完成，开始初始化卡片交互');
+
+    function initCardInteraction() {
+        const isMobile = window.innerWidth <= 768;
+        console.log('设备类型:', isMobile ? '移动设备' : '电脑设备');
+
+        const allContents = document.querySelectorAll('.card-content');
+        console.log('找到的卡片内容数量:', allContents.length);
+        allContents.forEach((content, index) => {
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+            console.log(`卡片内容 ${index + 1} 已设置为隐藏`);
+        });
+
+        const cardContainers = document.querySelectorAll('.card-container');
+        console.log('找到的卡片容器数量:', cardContainers.length);
+
+        cardContainers.forEach((container, index) => {
+            const card = container.querySelector('.card');
+            const image = container.querySelector('img');
+            const content = container.querySelector('.card-content');
+
+            console.log(`处理卡片容器 ${index + 1}`);
+            console.log('  卡片元素:', card ? '找到' : '未找到');
+            console.log('  图片元素:', image ? '找到' : '未找到');
+            console.log('  内容元素:', content ? '找到' : '未找到');
+
+            // 移除display: none设置，仅使用CSS动画属性控制
+            if (content) {
+                console.log(`  卡片容器 ${index + 1} 内容初始状态已设置`);
+            }
+
+            function toggleContent() {
+                if (content) {
+                    if (content.style.maxHeight === '0px' || content.style.maxHeight === '') {
+                        // 显示内容
+                        content.style.maxHeight = '500px'; // 设置一个足够大的值
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                        console.log(`  卡片容器 ${index + 1} 内容已显示`);
+                    } else {
+                        // 隐藏内容
+                        content.style.maxHeight = '0px';
+                        content.style.opacity = '0';
+                        content.style.transform = 'translateY(20px)';
+                        console.log(`  卡片容器 ${index + 1} 内容已隐藏`);
+                    }
+                }
+            }
+
+            function removeEventListeners(element) {
+                if (element) {
+                    const newElement = element.cloneNode(true);
+                    element.parentNode.replaceChild(newElement, element);
+                    return newElement;
+                }
+                return null;
+            }
+
+            const newCard = removeEventListeners(card);
+            const newImage = removeEventListeners(image);
+
+            if (newCard && newImage && content) {
+                if (isMobile) {
+                    newCard.onclick = toggleContent;
+                    newImage.onclick = toggleContent;
+                    console.log(`  卡片容器 ${index + 1} 已添加移动端点击事件`);
+                } else {
+                    container.onmouseenter = toggleContent;
+                    container.onmouseleave = toggleContent;
+                    console.log(`  卡片容器 ${index + 1} 已添加电脑端悬停事件`);
+                }
+            }
+        });
+    }
+
+    initCardInteraction();
+
+    window.addEventListener('resize', function() {
+        console.log('窗口大小变化，重新初始化卡片交互');
+        clearTimeout(window.resizeTimeout);
+        window.resizeTimeout = setTimeout(initCardInteraction, 250);
+    });
+});
+</script>
+    </main>
+</body>
+</html>

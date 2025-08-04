@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="icon" type="image/png" href="images/樱花.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忆往昔小镇 - WTFXXJR</title>
+    <link rel="stylesheet" href="style.css">
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <style>
+        /* 页面动画 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* 应用动画 */
+        body, nav a { opacity: 0; animation: fadeIn 0.6s ease-out forwards; }
+        .img-container1 { animation: scaleIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
+        #vcomments {
+            animation: slideUp 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+            transform: translateY(50px);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        /* 导航动画延迟 */
+        nav a:nth-child(1) { animation-delay: 0.2s; }
+        nav a:nth-child(2) { animation-delay: 0.3s; }
+        nav a:nth-child(3) { animation-delay: 0.4s; }
+        nav a:nth-child(4) { animation-delay: 0.5s; }
+        nav a:nth-child(5) { animation-delay: 0.6s; }
+        nav a:nth-child(6) { animation-delay: 0.7s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>忆往昔小镇 - WTFXXJR</h1>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="desktop-nav">
+                <a href="index.html">首页</a>
+                <a href="town.html">小镇图鉴</a>
+                <a href="message.html">留言墙</a>
+                <a href="env.html">环境展示</a>
+                <a href="gov.html">政务公开</a>
+                <a href="connect.html">加入我们</a>
+            </nav>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html">首页</a>
+            <a href="town.html">小镇图鉴</a>
+            <a href="message.html">留言墙</a>
+            <a href="env.html">环境展示</a>
+            <a href="gov.html">政务公开</a>
+            <a href="connect.html">加入我们</a>
+        </nav>
+    </header>
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+    <main>
+        <section class="hero">
+            <h2>留言墙</h2>
+            <p>在这里留下你对小镇的感想和建议...</p>
+        </section>
+        <div class="img-container1">
+            <img src="image/message.png" alt="一个朴实无华的留言区" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+        </div>
+        <div id="vcomments"></div>
+    </main>
+
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'h6jSaxTlSFWz7rDjRayW2ysO-gzGzoHsz',
+            appKey: 'KPQjL8rj87mtrvyT85l88suq'
+        });
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7462c90b804e4189886564da0b299485","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

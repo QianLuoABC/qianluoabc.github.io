@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="icon" type="image/png" href="images/樱花.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政务公开 - 忆往昔小镇</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>忆往昔小镇 - 政务公开</h1>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="desktop-nav">
+                <a href="index.html">首页</a>
+                <a href="town.html">小镇图鉴</a>
+                <a href="message.html">留言墙</a>
+                <a href="env.html">环境展示</a>
+                <a href="gov.html">政务公开</a>
+                <a href="connect.html">加入我们</a>
+            </nav>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html">首页</a>
+            <a href="town.html">小镇图鉴</a>
+            <a href="message.html">留言墙</a>
+            <a href="env.html">环境展示</a>
+            <a href="gov.html">政务公开</a>
+            <a href="connect.html">加入我们</a>
+        </nav>
+    </header>
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+    <main>
+        <h2>政务公开</h2>
+        <section class="government-cards">
+            <div class="government-card">
+                <h3>铁路局（交运部）玩家间自治条例（暂行）</h3>
+                <p>规范铁路建设、维护和使用的玩家行为准则</p>
+                <a href="railway_regulations.html" class="btn">查看详情</a>
+                <p style="text-align: right; color: #666; margin-top: 1rem; font-style: italic;">编写人：Windows</p>
+            </div>
+        </section>
+    </main>
+    <style>
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        .government-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .government-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .government-card:hover {
+            transform: translateY(-5px);
+        }
+        .government-card h3 {
+            color: #4a6fa5;
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+        .government-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4a6fa5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #3a5a85;
+        }
+    </style>
+
+</body>
+</html>
