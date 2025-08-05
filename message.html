@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <link rel="icon" type="image/png" href="images/樱花.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>忆往昔小镇 - WTFXXJR</title>
-    <link rel="preload" href="style.css" as="style">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/樱花.png" />
+    <link rel="preload" href="style.css" as="style" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
     <script src="loader.js"></script>
     <style>
         /* 页面动画 */
@@ -16,10 +15,11 @@
         @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* 应用动画 */
         body, nav a { opacity: 0; animation: fadeIn 0.6s ease-out forwards; }
         .img-container1 { animation: scaleIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
-        #vcomments {
+
+        /* 修复容器命名统一，动画样式 */
+        #vcomment {
             animation: slideUp 0.8s ease-out 0.3s forwards;
             opacity: 0;
             transform: translateY(50px);
@@ -39,6 +39,11 @@
         nav a:nth-child(5) { animation-delay: 0.6s; }
         nav a:nth-child(6) { animation-delay: 0.7s; }
         nav a:nth-child(7) { animation-delay: 0.8s; }
+
+        /* 移动导航初始隐藏 */
+        .mobile-nav {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +55,7 @@
                 <span></span>
                 <span></span>
             </div>
-            <nav class="desktop-nav">
+            <nav class="desktop-nav" role="navigation">
                 <a href="index.html">Index</a>
                 <a href="home.html">首页</a>
                 <a href="town.html">小镇图鉴</a>
@@ -61,7 +66,7 @@
                 <a href="connect.html">加入我们</a>
             </nav>
         </div>
-        <nav class="mobile-nav" id="mobileNav">
+        <nav class="mobile-nav" id="mobileNav" role="navigation">
             <a href="index.html">Index</a>
             <a href="home.html">首页</a>
             <a href="town.html">小镇图鉴</a>
@@ -72,28 +77,37 @@
             <a href="connect.html">加入我们</a>
         </nav>
     </header>
-    <script>
-        document.getElementById('hamburger').addEventListener('click', function() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
-        });
-    </script>
+
     <main>
         <section class="hero">
             <h2>留言墙</h2>
             <p>在这里留下你对小镇的感想和建议...</p>
         </section>
         <div class="img-container1">
-            <img src="images/message.png" alt="一个朴实无华的留言区" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" loading="lazy">
+            <img src="images/message.png" alt="一个朴实无华的留言区" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" loading="lazy" />
         </div>
-        <script>
-    new Valine({
-        el:'#vcomment',
-        appId: 'h6jSaxTlSFWz7rDjRayW2ysO-gzGzoHsz',
-        appKey: 'KPQjL8rj87mtrvyT85l88suq'
-    })
-</script>
+
+        <!-- 评论区容器 -->
+        <div id="vcomment"></div>
     </main>
-    <div id="vcomment"></div>
+
+    <!-- 移动导航点击事件 -->
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function () {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+
+    <!-- Valine 初始化 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Valine({
+                el: '#vcomment',
+                appId: 'h6jSaxTlSFWz7rDjRayW2ysO-gzGzoHsz',
+                appKey: 'KPQjL8rj87mtrvyT85l88suq'
+            });
+        });
+    </script>
 </body>
 </html>
