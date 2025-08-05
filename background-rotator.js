@@ -21,7 +21,7 @@ const backgroundImages = [
 let currentImageIndex = 0;
 
 // 轮换间隔（毫秒）
-const rotationInterval = 15000; // 15秒
+const rotationInterval = 45000; // 45秒
 
 // 设置背景图片
 function setBackgroundImage() {
@@ -50,3 +50,4 @@ window.addEventListener('DOMContentLoaded', () => {
     setInterval(setBackgroundImage, rotationInterval);
 
 });
+
