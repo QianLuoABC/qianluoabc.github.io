@@ -1,0 +1,448 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 加载动画样式 */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #b03e5c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 导航栏样式 */
+header {
+    background: #b03e5c;
+    color: white;
+    padding: 1rem 0;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.desktop-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.desktop-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.desktop-nav a:hover {
+    color: #f8c6d8;
+}
+
+.desktop-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #f8c6d8;
+    transition: width 0.3s;
+}
+
+.desktop-nav a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    transition: all 0.3s;
+}
+
+.mobile-nav {
+    display: none;
+    background: #b03e5c;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+.mobile-nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.mobile-nav a:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #ffeef2;
+    color: #b03e5c;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.official-card {
+    background: white;
+    border: 1px solid #f8c6d8;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: all 0.3s ease;
+    padding: 1rem;
+}
+
+.official-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f8c6d8;
+    margin: 0 auto 1rem;
+}
+
+.official-info {
+    padding: 1rem;
+}
+
+.official-title {
+    color: #b03e5c;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.town-card {
+    background: white;
+    border: 1px solid #f8c6d8;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.town-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.town-card-content {
+    padding: 1rem;
+    text-align: center;
+}
+
+.town-card-title {
+    color: #b03e5c;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.town-card-description {
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* 添加脉冲动画 */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 20px;
+    }
+
+/* 打字机效果样式 */
+.typewriter {
+    overflow: hidden; /* 确保文本不会溢出容器 */
+    white-space: nowrap; /* 保持文本在一行 */
+    margin: 0 auto; /* 居中显示 */
+    letter-spacing: 0.1em; /* 增加字母间距 */
+    position: relative;
+    color: #1E90FF; /* 设置文字颜色为蔚蓝色 */
+    animation: flash 2s infinite; /* 添加闪光动画 */
+}
+
+/* 光标效果 */
+.typewriter::after {
+    content: '|';
+    position: absolute;
+    right: -5px;
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+/* 光标闪烁动画 */
+@keyframes blink-caret {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 闪光动画 */
+@keyframes flash {
+    0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(30, 144, 255, 0.7); }
+    50% { opacity: 0.8; text-shadow: 0 0 20px rgba(30, 144, 255, 0.9), 0 0 30px rgba(30, 144, 255, 0.7); }
+}
+}
+
+.back-btn {
+    display: inline-block;
+    background-color: #4a6fa5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 1rem;
+}
+
+.back-btn:hover {
+    background-color: #3a5a85;
+}
+
+.hero {
+    background: #fce4ec;
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1rem;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+.card-container {
+    position: relative;
+    flex: 1 1 250px;
+    max-width: 300px;
+}
+
+@media (min-width: 769px) {
+    .card-container {
+        flex: 1 1 calc(33.333% - 2rem);
+        max-width: calc(33.333% - 2rem);
+    }
+}
+.card-container img, .town-card img {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0 0 10px 10px;
+}
+.card-container img:hover {
+    transform: scale(1.02);
+}
+.card {
+    background: white;
+    border: 1px solid #f8c6d8;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.card:hover {    box-shadow: 0 4px 8px rgba(0,0,0,0.1);    transition: box-shadow 0.3s;}
+.card-content {
+    background: white;
+    border: 1px solid #f8c6d8;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.card-content p {
+    margin: 0;
+}
+@media (max-width: 768px) {
+    .card-container {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    header h1 {
+        font-size: 1.2rem;
+    }
+}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.gallery.four-columns img {
+    flex: 1 1 calc(25% - 1rem);
+    max-width: calc(25% - 1rem);
+}
+
+.gallery.one-column img {
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+
+.layout-btn {
+    background-color: #b03e5c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.layout-btn:hover {
+    background-color: #8a2e48;
+    transition: background-color 0.3s;
+}
+.gallery img {
+    flex: 1 1 300px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.gallery img:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #bbb;
+}
+
+.modal-content {
+    animation-name: zoom;
+    animation-duration: 0.4s;
+}
+
+@keyframes zoom {
+    from {transform: translate(-50%, -50%) scale(0)} 
+    to {transform: translate(-50%, -50%) scale(1)}
+}

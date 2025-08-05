@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="icon" type="image/png" href="images/樱花.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忆往昔小镇 - info</title>
+    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css">
+    <script src="loader.js"></script>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #f5f5f5;
+            --accent-color: #ff9e9e;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #fff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* 页面动画 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-image: url('images/CHINA.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: inline-block;
+            width: 100%;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        /* 内容区块样式 */
+        .section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        /* 首页样式 */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: rgba(255, 235, 238, 0.95);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            animation: pulse 4s infinite;
+        }
+
+        .hero h2 {
+            border-bottom: none;
+            margin-bottom: 1rem;
+        }
+
+/* 首页文字描述样式 */
+        .home-description {
+            padding: 2rem;
+            background-color: rgba(245, 245, 245, 0.9);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .home-description h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .home-description p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* 小镇图鉴样式 */
+        .town-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .town-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .town-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .town-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .town-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .town-card-content {
+            padding: 1.5rem;
+        }
+
+        /* 留言墙样式 */
+        .message-section {
+            padding: 2rem;
+        }
+
+        #vcomments {
+            margin-top: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+
+        /* 环境展示样式 */
+        .gallery-container {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .gallery-controls {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .gallery-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .gallery-btn:hover {
+            background-color: #3a5a85;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 政务公开与社区管理样式 */
+        .gov-content,
+        .regulation-content,
+        .conflict-content {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .gov-content h3,
+        .regulation-content h3,
+        .conflict-content h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+        }
+
+        .gov-content h4,
+        .regulation-content h4,
+        .conflict-content h4 {
+            color: #555;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .gov-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .gov-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .regulation-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 政务公开样式 */
+        .gov-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gov-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gov-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .gov-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+
+        .gov-card h3 {
+            margin-top: 0;
+            padding-left: 1rem;
+        }
+
+        /* 公职人员样式 */
+        .officials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .official-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .official-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .official-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .official-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .official-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .official-info {
+            padding: 1.5rem;
+        }
+
+        .official-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        /* 加入我们样式 */
+        .server-info {
+            padding: 2rem;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .server-info ul {
+            list-style-type: none;
+            margin: 1.5rem 0;
+        }
+
+        .server-info li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .server-info li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .server-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        /* 铁路法规和冲突解决样式 */
+        .regulation-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .regulation-section ul,
+        .regulation-section ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .regulation-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .cards,
+            .town-cards,
+            .gov-cards,
+            .officials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 头部横幅 -->
+<header style="margin-top: 0;">
+    <div class="container">
+        <h1>忆往昔小镇</h1>
+        <p id="rotating-text" class="typewriter"></p>
+        <script>
+            // 打字机效果和文本轮换
+            const texts = ["携来百侣曾游", "忆往昔峥嵘岁月稠"];
+            let currentTextIndex = 0;
+            let currentCharIndex = 0;
+            let isDeleting = false;
+            const typingSpeed = 150; // 打字速度
+            const deletingSpeed = 70; // 删除速度
+            const pauseBetweenTexts = 2000; // 文本之间的暂停时间
+
+            const textElement = document.getElementById('rotating-text');
+
+            function type() {
+                const currentText = texts[currentTextIndex];
+
+                if (isDeleting) {
+                    // 删除字符
+                    textElement.textContent = currentText.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                } else {
+                    // 添加字符
+                    textElement.textContent = currentText.substring(0, currentCharIndex + 1);
+                    currentCharIndex++;
+                }
+
+                // 检查是否完成当前文本的打字
+                if (!isDeleting && currentCharIndex === currentText.length) {
+                    // 暂停一段时间后开始删除
+                    isDeleting = true;
+                    setTimeout(type, pauseBetweenTexts);
+                } else if (isDeleting && currentCharIndex === 0) {
+                    // 切换到下一个文本
+                    isDeleting = false;
+                    currentTextIndex = (currentTextIndex + 1) % texts.length;
+                    setTimeout(type, 500);
+                } else {
+                    // 继续打字或删除
+                    const speed = isDeleting ? deletingSpeed : typingSpeed;
+                    setTimeout(type, speed);
+                }
+            }
+
+            // 开始打字机效果
+            window.addEventListener('DOMContentLoaded', type);
+        </script>
+        <div style="margin-top: 1rem;">
+            <a href="home.html" style="display: inline-block; padding: 0.5rem 1rem; background-color: var(--primary-color); color: var(--white); text-decoration: none; border-radius: 4px; font-weight: normal; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.3);">
+                前往主页
+            </a>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        <!-- 首页内容 -->
+        <section id="home" class="section" style="animation-delay: 0.2s;">
+            <h2>首页</h2>
+            <div class="hero">
+                <h3>欢迎来到忆往昔小镇</h3>
+                <p>这是 WTFXXJR 服务器里最有温度的记忆空间...</p>
+            </div>
+            <div class="home-description">
+                <h3>小镇简介</h3>
+                <p>忆往昔小镇是WTFXXJR服务器中最具历史和人文气息的区域，由一群WTFXXJ元老级且热爱Minecraft的玩家共同创建和维护。这里记录了服务器的发展历程，也承载着玩家们的珍贵回忆。</p>
+                <h3>特色区域</h3>
+                <p>小镇拥有多个特色区域，包括设施游泳池、服务器商店、便捷的地铁站-忆往昔总站、正在建设中的赝海站，以及充满生活气息的居民区。</p>
+                <h3>社区文化</h3>
+                <p>忆往昔小镇秉承"和谐、创新、共享"的社区理念，鼓励玩家积极参与小镇建设，共同创造温馨友好的游戏环境。</p>
+            </div>
+        </section>
+
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7462c90b804e4189886564da0b299485","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+        <!-- 环境展示内容 -->
+        <section id="env" class="section" style="animation-delay: 0.8s;">
+            <h2>环境展示</h2>
+            <div class="gallery" id="gallery">
+                <img src="images/1.jpg" alt="小镇环境1" loading="lazy" class="gallery-img">
+                <img src="images/2.jpg" alt="小镇环境2" loading="lazy" class="gallery-img">
+                <img src="images/3.jpg" alt="小镇环境3" loading="lazy" class="gallery-img">
+                <img src="images/4.jpg" alt="小镇环境4" loading="lazy" class="gallery-img">
+                <img src="images/5.jpg" alt="小镇环境5" loading="lazy" class="gallery-img">
+                <img src="images/6.jpg" alt="小镇环境6" loading="lazy" class="gallery-img">
+                <img src="images/7.jpg" alt="小镇环境7" loading="lazy" class="gallery-img">
+                <img src="images/8.jpg" alt="小镇环境8" loading="lazy" class="gallery-img">
+                <img src="images/9.jpg" alt="小镇环境9" loading="lazy" class="gallery-img">
+                <img src="images/10.jpg" alt="小镇环境10" loading="lazy" class="gallery-img">
+                <img src="images/11.jpg" alt="小镇环境11" loading="lazy" class="gallery-img">
+                <img src="images/12.jpg" alt="小镇环境12" loading="lazy" class="gallery-img">
+            </div>
+        </section>
+
+        <!-- 政务公开与社区管理 -->
+        <section id="gov_and_community" class="section" style="animation-delay: 1.6s;">
+            <h2>政务公开与社区管理</h2>
+
+            <!-- 铁路法规内容 -->
+            <div class="regulation-content">
+                <h3>铁路法规</h3>
+                <div class="regulation-section">
+                    <h4>前言</h4>
+                    <p>我们服务器自古以来就有铁路一光荣传统。历代铁路建设者/管理员亦为此鞠躬尽瘁。因此，特设立铁路管理条例，以约束玩家间行为。因不属于官方服规，故只做约束而非官方处罚</p>
+                </div>
+                <div class="regulation-section">
+                    <h4>禁止的行为</h4>
+                    <ul>
+                        <li>破坏/擅自改变铁路线路的</li>
+                        <li>私搭乱牵破坏铁路秩序的</li>
+                        <li>改变/破坏铁路及其周边配套设施的</li>
+                        <li>建设铁路过程中以各种行为严重阻碍工作组开展工作的</li>
+                    </ul>
+                </div>
+                <div class="regulation-section">
+                    <h4>文明倡议</h4>
+                    <ul>
+                        <li>杜绝私搭乱牵，做文明玩家</li>
+                        <li>向任何一位铁路建筑人员提出请求且得到同意后方可在指挥下进行工作</li>
+                        <li>生存需要铁轨可以，但是请去刷轨机，不要把铁路当成人工刷轨机</li>
+                        <li>给车站搞拆迁是绝对不行的!!!同上一条，要任何资源不要揪着铁路薅ok？？？</li>
+                    </ul>
+                </div>
+                <div style="text-align: center; margin-top: 1rem; color: #666; font-style: italic;">编写人：Windows 编写于2025/8/3</div>
+            </div>
+
+            <!-- 冲突解决内容 -->
+            <div class="conflict-content">
+                <h3>冲突解决</h3>
+                <div class="regulation-section">
+                    <h4>矛盾根源分析</h4>
+                    <p>近日我们知道，xiaowu与我们产生了一些矛盾。细究这些矛盾的根源，我们能发现，它们的表面是玩家间的矛盾，但实际上是小镇紧张的土地资源以及糟糕的土地管理与人民便捷生活的需求的矛盾。</p>
+                    <p>以我的亲身体会，我在修高铁站（不是地铁）预留线路的时候，修着修着修到了别人的红石机器。又是xiaowu，他修人行道的根本目的是避开地上的大型机械等设施/生物/实体的卡顿，然而却造成了大家的不满。</p>
+                    <p>所以，<strong>1.整顿小镇土地资源2.开发新的工业区刻不容缓!</strong></p>
+                </div>
+                <div class="regulation-section">
+                    <h4>解决方案</h4>
+                    <p>在赝海北部（也就是小镇对岸）有很大的平原，省去了平坦地形的大麻烦。因此作为新区是再好不过了。</p>
+                    <p>对此，我正式提议，开发北部工业区!</p>
+                </div>
+                <div class="regulation-section">
+                    <h4>开发三步走战略</h4>
+                    <ol>
+                        <li>修建地铁站、高铁站、跨江大桥，实现三通</li>
+                        <li>部分玩家带头兴建工业区，带动整体大迁移</li>
+                        <li>全部红石工业完全迁移，原小镇拆除工业，转型纯住宅区</li>
+                    </ol>
+                </div>
+                <div style="text-align: center; margin-top: 1rem; color: #666; font-style: italic;">编写人：Windows 编写于2025/8/4</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 为元素添加滚动触发动画
+        function setupScrollAnimations() {
+            // 为section添加动画
+            const sections = document.querySelectorAll('.section');
+            // 为card添加动画
+            const cards = document.querySelectorAll('.card');
+            // 为town-card添加动画
+            const townCards = document.querySelectorAll('.town-card');
+            // 为official-card添加动画
+            const officialCards = document.querySelectorAll('.official-card');
+
+            function checkVisibility() {
+                // 处理section动画
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (sectionTop < windowHeight * 0.75) {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }
+                });
+
+                // 处理card动画
+                cards.forEach((card, index) => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (cardTop < windowHeight * 0.8) {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+
+                // 处理town-card动画
+                townCards.forEach((card, index) => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (cardTop < windowHeight * 0.8) {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+
+                // 处理official-card动画
+                officialCards.forEach((card, index) => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (cardTop < windowHeight * 0.8) {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }
+
+            // 添加脉冲动画
+            if (!document.querySelector('style#animation-style')) {
+                const style = document.createElement('style');
+                style.id = 'animation-style';
+                style.textContent = `
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.02); }
+                        100% { transform: scale(1); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            return checkVisibility;
+        }
+
+        const checkVisibility = setupScrollAnimations();
+
+        // 初始检查
+        checkVisibility();
+
+        // 滚动时检查
+        window.addEventListener('scroll', checkVisibility);
+
+        // Valine评论系统
+        function initValine() {
+            if (window.Valine) {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'h6jSaxTlSFWz7rDjRayW2ysO-gzGzoHsz',
+                    appKey: 'KPQjL8rj87mtrvyT85l88suq'
+                });
+            } else {
+                console.log('Valine is not loaded yet, retrying...');
+                setTimeout(initValine, 500);
+            }
+        }
+
+    </script>
+    <!-- 引入Valine评论系统 -->
+    <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<div id="xf-MusicPlayer" data-cdnName="https://player.xfyun.club/js"  data-themeColor="xf-wineRed" data-songList="13162092656"data-fadeOutAutoplay data-random="true"></div>
+<script src="https://player.xfyun.club/js/xf-MusicPlayer/js/xf-MusicPlayer.min.js"></script>
+        <!-- 返回顶部按钮 -->
+        <button id="back-to-top" class="back-to-top">
+            ↑ 返回顶部
+        </button>
+
+        <style>
+            .back-to-top {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background-color: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                font-size: 16px;
+                cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                transform: translateY(20px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .back-to-top.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .back-to-top:hover {
+                background-color: var(--secondary-color);
+            }
+        </style>
+
+        <script>
+            // 返回顶部按钮点击事件
+            document.getElementById('back-to-top').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        </script>
+    </body>
+</html>
