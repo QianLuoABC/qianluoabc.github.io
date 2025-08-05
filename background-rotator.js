@@ -13,7 +13,8 @@ const backgroundImages = [
     'background/9.jpg',
     'background/10.jpg',
     'background/11.jpg',
-    'background/12.jpg'
+    'background/12.jpg',
+    'background/渲染图.png'
 ];
 
 // 当前图片索引
@@ -47,4 +48,5 @@ window.addEventListener('DOMContentLoaded', () => {
     setBackgroundImage();
     // 设置定时器，每隔15秒更换背景
     setInterval(setBackgroundImage, rotationInterval);
+
 });
